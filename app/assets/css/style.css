@@ -7,7 +7,7 @@ h1{
 
 .admin {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .home{
