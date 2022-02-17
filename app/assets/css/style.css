@@ -1,0 +1,19 @@
+h1{
+    text-align: center;
+}
+.container{
+    margin:5%;
+}
+
+.admin {
+    display: flex;
+    justify-content: space-around;
+}
+
+.home{
+    text-align: end;
+}
+
+nav ul li {
+    list-style: none;
+}
