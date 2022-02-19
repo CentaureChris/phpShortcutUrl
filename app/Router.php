@@ -64,6 +64,16 @@ class Router{
             case "logout":
                 $this->auth_ctr->logout();
                 break;
+
+            case "disabled":
+                    $id = $_GET['id'];
+                    $this->ctr_u->disableLink($id);
+                break;
+            
+            case "enabled":
+                $id = $_GET['id'];
+                $this->ctr_u->enableLink($id);
+            break;
         }
     }  
 }

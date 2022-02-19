@@ -33,5 +33,18 @@ class Urls_controller
             exit();
         }
     }
+
+    public function disableLink($id)
+    {
+       $this->urls_m->disableLink_query($id);
+        header('location:index.php');
+        exit();
+    }
     
+    public function enableLink($id)
+    {
+       $this->urls_m->enableLink_query($id);
+        header('location:index.php');
+        exit();
+    }
 }

@@ -19,14 +19,14 @@ class AuthController{
         require_once('./views/register.php');
     }
 
-    function view($page,$variables=[])
-    {
-        if(count($variables))
-        {
-            extract($variables);
-        }
-        require $page;
-    }
+    // function view($page,$variables=[])
+    // {
+    //     if(count($variables))
+    //     {
+    //         extract($variables);
+    //     }
+    //     require $page;
+    // }
 
     public function login($login,$pass)
     {
