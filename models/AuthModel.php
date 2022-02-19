@@ -17,7 +17,7 @@ class AuthModel extends Driver {
         $result = $this->getRequest($sql,$param);
         $user = $result->fetch(PDO::FETCH_ASSOC);
         if($user == true){
-            return $user['pass'];
+            return $user;
         }
     }
 

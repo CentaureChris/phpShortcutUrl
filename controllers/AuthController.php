@@ -35,8 +35,9 @@ class AuthController{
         // var_dump( password_verify($pass, $login) ) ;
         $res = $this->auth_mdl->login_query($login,$pass);
         $error="";
-        if(password_verify($pass,$login) == 1){
+        if(password_verify($pass,$login['pass']) == 1){
             $_SESSION['Auth'] = $_POST['login'];
+            $_SESSION['AuthId'] = $login['id'];
             header('Location: index.php');
         }else{
             $error = "Login et/ou mot de pass incorrect!";
@@ -46,7 +47,7 @@ class AuthController{
 
     public function logout()
     {
-        unset($_SESSION['Auth']);
+        unset($_SESSION['Auth'],$_SESSION['AuthId']);
         header('Location: index.php?page=login');
     }
 

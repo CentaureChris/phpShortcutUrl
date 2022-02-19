@@ -1,3 +1,4 @@
+<?php var_dump($_SESSION); ?>
 <nav>
     <ul class="admin">
         <li><a href="index.php">Url shortcut</a></li>

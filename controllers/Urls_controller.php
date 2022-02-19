@@ -24,6 +24,9 @@ class Urls_controller
         $longUrl = trim(htmlspecialchars(addslashes($_POST['longurl'])));
         $url->setLong_url($longUrl);
 
+        $userId = trim(htmlspecialchars(addslashes($_SESSION['AuthId'])));
+        $url->setFk_user_id($userId);
+
         $nb = $this->urls_m->insertUrls($url);
         if($nb) {
             header('location:index.php');
