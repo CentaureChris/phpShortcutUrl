@@ -78,12 +78,12 @@ class Router{
             case "count":
                 $id = $_GET['id'];
                 $this->ctr_u->count($id);
+                $this->ctr_u->getUrlTest($id);
             break;
 
-            // case "test":
-            //     $this->ctr_u->getUrlTest($id);
-            // break;
-
+            case "delete":
+                $id = $_GET['id'];
+                $this->ctr_u->deleteUrl($id);
         }
     }  
 }

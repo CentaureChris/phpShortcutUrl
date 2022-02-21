@@ -48,19 +48,25 @@ class Urls_controller
         exit();
     }
 
-    public function count($id)
+    public function deleteUrl($id)
     {
-        $id = $_GET['id'];
-
-        // $link = $this->urls_m->getUrl_query();
-        $this->urls_m->count_url($id);
+        $this->urls_m->deleteUrl_query($id);
         header('location:index.php');
-        // header('Location: '.$link.'');
         exit();
     }
 
-    // public function getUrlTest($id)
-    // {
-    //     $this->
-    // }
+    public function count($id)
+    {
+        $id = $_GET['id'];
+        $this->urls_m->count_url($id);
+    }
+
+    public function getUrlTest($id)
+    {
+        $id = $_GET['id'];
+        $link = $this->urls_m->getUrl_query($id);
+        $url = $link->fetch();
+        header('location: '.$url['long_url'].'');
+        exit();
+    }
 }

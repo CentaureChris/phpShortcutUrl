@@ -10,11 +10,10 @@ class Urls_model extends Driver{
         return $result;
     }
 
-    public function getUrl_query()
+    public function getUrl_query($id)
     {
-        $sql = "SELECT long_url FROM urls WHERE fk_user_id = :id";
-        $param = ['id' => $_GET['id']];
-        $result = $this->getRequest($sql,$param);
+        $sql = "SELECT * FROM urls WHERE id = $id ";
+        $result = $this->getRequest($sql);
         return $result;
     }
 
@@ -48,6 +47,14 @@ class Urls_model extends Driver{
     public function count_url($id)
     {
         $sql = "UPDATE urls SET count = count+1 WHERE id = $id";
+        $res = $this->getRequest($sql);
+
+        return $res;
+    }
+
+    public function deleteUrl_query($id)
+    {
+        $sql = "DELETE FROM urls WHERE id = $id";
         $res = $this->getRequest($sql);
 
         return $res;

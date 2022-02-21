@@ -1,7 +1,6 @@
 <?php
 require_once('./views/header.php');
 require_once('./views/navbar.php');
-
 ?>
 
 <div class="container">
@@ -40,7 +39,7 @@ require_once('./views/navbar.php');
                         </td>
                         <td><?= $url['count'] ?></td>
                         <td>
-                            <a href="index.php?page=disabled&id=<?= $url['id'] ?>"><button class="btn btn-secondary"> disable</button> </a>
+                            <a href="index.php?page=disabled&id=<?= $url['id'] ?>"><button class="btn btn-secondary"> disable</button> </a> <a href="index.php?page=delete&id=<?= $url['id'] ?>"><button class="btn btn-danger" >delete</button></a>
                         </td>
                     </tr>
                 <?php else : ?>
@@ -48,7 +47,7 @@ require_once('./views/navbar.php');
                         <td><span><?= $url['long_url'] ?></span> </td>
                         <td> <span>http://shortURL.com/<?= $url['id'], bin2hex(random_bytes(5)) ?></span></td>
                         <td><?= $url['count'] ?></td>
-                        <td> <a href="index.php?page=enabled&id=<?=$url['id'];?>"><button class="btn btn-secondary">enable</button></a> <button>delete</button> </td>
+                        <td> <a href="index.php?page=enabled&id=<?=$url['id'];?>"><button class="btn btn-secondary">enable</button></a> <a href="index.php?page=delete&id=<?= $url['id'] ?>"><button class="btn btn-danger" >delete</button></a></td>
                     </tr>
 
                 
@@ -58,4 +57,4 @@ require_once('./views/navbar.php');
     </table>
 </div>
 
-<a href="<?= $url['long_url'] ?>" target="blank">http://shortURL.com/<?= $url['id'], bin2hex(random_bytes(5)) ?></a>
+
