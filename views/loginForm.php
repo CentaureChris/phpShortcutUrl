@@ -17,7 +17,7 @@ require_once('./views/navbar.php') ;
       <label for="pass" class="form-label">Password</label>
       <input type="password" class="form-control" id="pass" name="pass">
         </br>
-        <?= $error ?>
+
         </br>
       <a href="index.php?page=register">Click here to register.</a>
         </br>

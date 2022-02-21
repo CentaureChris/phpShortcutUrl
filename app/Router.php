@@ -74,6 +74,16 @@ class Router{
                 $id = $_GET['id'];
                 $this->ctr_u->enableLink($id);
             break;
+
+            case "count":
+                $id = $_GET['id'];
+                $this->ctr_u->count($id);
+            break;
+
+            // case "test":
+            //     $this->ctr_u->getUrlTest($id);
+            // break;
+
         }
     }  
 }

@@ -10,6 +10,14 @@ class Urls_model extends Driver{
         return $result;
     }
 
+    public function getUrl_query()
+    {
+        $sql = "SELECT long_url FROM urls WHERE fk_user_id = :id";
+        $param = ['id' => $_GET['id']];
+        $result = $this->getRequest($sql,$param);
+        return $result;
+    }
+
     public function insertUrls(Urls $urls)
     {
         $sql = "INSERT INTO urls (long_url,fk_user_id,count) VALUES (:longurl,:id,0)";
@@ -33,6 +41,14 @@ class Urls_model extends Driver{
         $sql = "UPDATE urls SET active = 1 WHERE id = :id";
         $param =['id' => $id];
         $res = $this->getRequest($sql,$param);
+
+        return $res;
+    }
+
+    public function count_url($id)
+    {
+        $sql = "UPDATE urls SET count = count+1 WHERE id = $id";
+        $res = $this->getRequest($sql);
 
         return $res;
     }

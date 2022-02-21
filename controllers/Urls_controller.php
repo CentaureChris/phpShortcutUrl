@@ -47,4 +47,20 @@ class Urls_controller
         header('location:index.php');
         exit();
     }
+
+    public function count($id)
+    {
+        $id = $_GET['id'];
+
+        // $link = $this->urls_m->getUrl_query();
+        $this->urls_m->count_url($id);
+        header('location:index.php');
+        // header('Location: '.$link.'');
+        exit();
+    }
+
+    // public function getUrlTest($id)
+    // {
+    //     $this->
+    // }
 }
