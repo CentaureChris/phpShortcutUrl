@@ -44,10 +44,9 @@ class Urls_controller
 
         $nb = $this->urls_m->insertUrls($url);
 
-        if($nb) {
-            header('location:index.php');
-            exit();
-        }
+        // header('location:index.php');
+        // exit();
+        
     }
     
     public function enableLink($id)
@@ -68,7 +67,6 @@ class Urls_controller
     {
         $id = $_GET['id'];
         $this->urls_m->count_url($id);
-        
     }
 
     public function getUrlTest($id)
