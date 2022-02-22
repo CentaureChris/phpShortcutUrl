@@ -4,6 +4,7 @@ class Urls {
 
     private $id;
     private $long_url;
+    private $short_url;
     private $active;
     private $fk_user_id;
     private $count;
@@ -105,6 +106,26 @@ class Urls {
     public function setCount($count)
     {
         $this->count = $count;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of short_url
+     */ 
+    public function getShort_url()
+    {
+        return $this->short_url;
+    }
+
+    /**
+     * Set the value of short_url
+     *
+     * @return  self
+     */ 
+    public function setShort_url($short_url)
+    {
+        $this->short_url = $short_url;
 
         return $this;
     }

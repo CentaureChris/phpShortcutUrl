@@ -2,8 +2,7 @@
 require_once('./views/header.php');
 require_once('./views/navbar.php');
 // print_r($files);
-// print_r($urls);
-// var_dump($_FILES);
+var_dump($_POST);
 
 ?>
 
@@ -12,6 +11,8 @@ require_once('./views/navbar.php');
     <form method="POST">
         <label class="form_label" for="longurl">Entrer l'Url à raccourcir</label>
         <input class="form_control" type="text" id="longurl" name="longurl" />
+
+        <input type="hidden" name="shorturl" value="http://shortURL.com/<?= bin2hex(random_bytes(5)) ?>" />
         <button type="submit" name="submit">Raccourcir</button>
     </form>
     </br>
@@ -33,7 +34,7 @@ require_once('./views/navbar.php');
                             <a href="<?= $url['long_url'] ?>" target="blank"> <?= $url['long_url'] ?></a>
                         </td>
                         <td>
-                            <a href="index.php?page=count&id=<?= $url['id'] ?>">http://shortURL.com/<?= $url['id'], bin2hex(random_bytes(5)) ?></a>
+                            <a href="index.php?page=count&id=<?= $url['id'] ?>"><?= $url['short_url'] ?></a>
                         </td>
                         <td><?= $url['count'] ?></td>
                         <td>
@@ -43,7 +44,7 @@ require_once('./views/navbar.php');
                 <?php else : ?>
                     <tr>
                         <td><span><?= $url['long_url'] ?></span> </td>
-                        <td> <span>http://shortURL.com/<?= $url['id'], bin2hex(random_bytes(5)) ?></span></td>
+                        <td> <span><?= $url['short_url']; ?></span></td>
                         <td><?= $url['count'] ?></td>
                         <td> <a href="index.php?page=enabled&id=<?=$url['id'];?>"><button class="btn btn-success">enable</button></a> <a href="index.php?page=delete&id=<?= $url['id'] ?>"><button class="btn btn-danger" >delete</button></a></td>
                     </tr>
@@ -65,12 +66,14 @@ require_once('./views/navbar.php');
         <thead>
             <tr>
                 <th>Fichiers stocké</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach($files as $file) : ?>
             <tr>
                 <td><a href="index.php?page=download&id=<?= $file['id']; ?>"><?= $file['files'] ?></a></td>
+                <td> <a href="index.php?page=deleteFile&id=<?= $file['id'] ?>"><button class="btn btn-danger" >delete</button></a>  </td>
             </tr>
             <?php endforeach ; ?>
         </tbody>

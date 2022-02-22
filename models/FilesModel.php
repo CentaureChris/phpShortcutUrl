@@ -25,4 +25,12 @@ class Files_model extends Driver{
 
         return $result;
     }
+
+    public function deleteFile_query($id)
+    {
+        $sql = "DELETE FROM files WHERE id = $id";
+        $result = $this->getRequest($sql);
+        
+        return $result;
+    }
 }

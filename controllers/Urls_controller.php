@@ -20,6 +20,15 @@ class Urls_controller
         require_once('./views/tinyurls.php');
     }
 
+    
+
+    public function disableLink($id)
+    {
+       $this->urls_m->disableLink_query($id);
+        header('location:index.php');
+        exit();
+    }
+
     public function newUrls()
     {
         $url = new Urls();
@@ -27,21 +36,18 @@ class Urls_controller
         $longUrl = trim(htmlspecialchars(addslashes($_POST['longurl'])));
         $url->setLong_url($longUrl);
 
+        $shortUrl = trim(htmlspecialchars(addslashes($_POST['shorturl'])));
+        $url->setShort_url($shortUrl);
+
         $userId = trim(htmlspecialchars(addslashes($_SESSION['AuthId'])));
         $url->setFk_user_id($userId);
 
         $nb = $this->urls_m->insertUrls($url);
+
         if($nb) {
             header('location:index.php');
             exit();
         }
-    }
-
-    public function disableLink($id)
-    {
-       $this->urls_m->disableLink_query($id);
-        header('location:index.php');
-        exit();
     }
     
     public function enableLink($id)
@@ -62,6 +68,7 @@ class Urls_controller
     {
         $id = $_GET['id'];
         $this->urls_m->count_url($id);
+        
     }
 
     public function getUrlTest($id)
@@ -102,5 +109,12 @@ class Urls_controller
             readfile($files);
             exit;
         }
+    }
+
+    public function deleteFile($id)
+    {
+        $this->files_m->deleteFile_query($id);
+        header('location:index.php');
+        exit();
     }
 }

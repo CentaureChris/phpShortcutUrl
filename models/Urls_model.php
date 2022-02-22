@@ -20,8 +20,11 @@ class Urls_model extends Driver{
 
     public function insertUrls(Urls $urls)
     {
-        $sql = "INSERT INTO urls (long_url,fk_user_id,count) VALUES (:longurl,:id,0)";
-        $tparam = ["longurl"=>$urls->getLong_url(),'id' => $_SESSION['AuthId']];
+        $sql = "INSERT INTO urls (long_url,short_url,fk_user_id,count) VALUES (:longurl,:shorturl,:id,0)";
+        $tparam = ["longurl"=>$urls->getLong_url(),
+                    "shorturl"=>$urls->getShort_url(),
+                    'id' => $_SESSION['AuthId']
+                ];
         $result = $this->getRequest($sql,$tparam);
         
         return $result;

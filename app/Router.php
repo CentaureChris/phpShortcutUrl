@@ -19,16 +19,12 @@ class Router{
 
     private $ctr_u;
     private $auth_ctr;
-    private $files_ctr;
     private $page; 
-    private $action; 
-
 
     public function __construct()
     {
         $this->ctr_u = new Urls_Controller();  
         $this->auth_ctr = new AuthController();
-        // $this->files_ctr = new Files_controller;
         $this->page = filter_input(INPUT_GET,"page");
         $this->action = filter_input(INPUT_GET,"action");
     }
@@ -37,10 +33,9 @@ class Router{
     {
         switch($this->page){
             case "":
-                // $this->files_ctr->getFiles();
                 $this->ctr_u->getUrls();
                 if(isset($_POST['submit'])){
-                    $this->ctr_u->newUrls();    
+                    $this->ctr_u->newUrls();  
                 }
                 if(isset($_POST['submitFile'])){
                     $this->ctr_u->newFile();
@@ -99,6 +94,12 @@ class Router{
             case "download":
                 $id = $_GET['id'];
                 $this->ctr_u->downloadFile($id);
+            break;
+
+            case "deleteFile":
+                $id = $_GET['id'];
+                $this->ctr_u->deleteFile($id);
+            break;
         }
     }  
 }
