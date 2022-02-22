@@ -34,7 +34,7 @@ class Router{
         switch($this->page){
             case "":
                 $this->ctr_u->getUrls();
-                if(isset($_POST['submit'])){
+                if(isset($_POST['submit']) && !empty($_POST['longurl'])){
                     $this->ctr_u->newUrls();  
                 }
                 if(isset($_POST['submitFile'])){

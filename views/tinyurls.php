@@ -8,7 +8,7 @@ require_once('./views/navbar.php');
 
 <div class="container">
     <h1>Shortcut urls app</h1>
-    <form method="POST">
+    <form method="POST" action="<?php $_SERVER['PHP_SELF']; ?>">
         <label class="form_label" for="longurl">Entrer l'Url à raccourcir</label>
         <input class="form_control" type="text" id="longurl" name="longurl" />
 
