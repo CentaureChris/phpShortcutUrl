@@ -3,8 +3,9 @@ class Files_model extends Driver{
 
     public function getFiles_query()
     {
-        $sql = "SELECT * FROM files";
-        $result = $this->getRequest($sql);
+        $sql = "SELECT * FROM files WHERE user_id = :id";
+        $param =['id' => $_SESSION['AuthId']];
+        $result = $this->getRequest($sql,$param);
         $files = $result->fetchAll(PDO::FETCH_ASSOC);
         return $files;
     }
@@ -19,8 +20,10 @@ class Files_model extends Driver{
 
     public function newFile_query(Files $files)
     {
-        $sql = "INSERT INTO files (files) VALUES (:file_name)";
-        $param = ["file_name"=>$files->getFile_name()];
+        $sql = "INSERT INTO files (files,user_id) VALUES (:file_name,:user_id)";
+        $param = ["file_name"=>$files->getFile_name(),
+                    "user_id"=> $_SESSION['AuthId']
+        ];
         $result = $this->getRequest($sql,$param);
 
         return $result;
@@ -30,7 +33,7 @@ class Files_model extends Driver{
     {
         $sql = "DELETE FROM files WHERE id = $id";
         $result = $this->getRequest($sql);
-        
+
         return $result;
     }
 }

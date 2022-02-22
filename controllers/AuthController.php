@@ -19,14 +19,6 @@ class AuthController{
         require_once('./views/register.php');
     }
 
-    // function view($page,$variables=[])
-    // {
-    //     if(count($variables))
-    //     {
-    //         extract($variables);
-    //     }
-    //     require $page;
-    // }
 
     public function login($login,$pass)
     {
@@ -34,15 +26,16 @@ class AuthController{
         // echo $login;
         // var_dump( password_verify($pass, $login) ) ;
         $res = $this->auth_mdl->login_query($login,$pass);
-        $error="";
-        if(password_verify($pass,$login['pass']) == 1){
+       if(password_verify($pass,$login['pass']) == 1){
             $_SESSION['Auth'] = $_POST['login'];
             $_SESSION['AuthId'] = $login['id'];
             header('Location: index.php');
             exit();
+        } elseif($login == null || $pass == null){
+            echo "<h3 class ='offset-4 col-4 text-center bg-danger' >Login et/ou mot de pass incorrect!</h3>";
         }else{
-            $error = "Login et/ou mot de pass incorrect!";
-            require_once('./views/loginForm.php');
+            echo "<h3 class ='offset-4 col-4 text-center bg-danger' >Login et/ou mot de pass incorrect!</h3>";
+            // require_once('./views/loginForm.php');
         }
     }
 

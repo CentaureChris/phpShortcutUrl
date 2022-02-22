@@ -2,7 +2,7 @@
 require_once('./views/header.php');
 require_once('./views/navbar.php');
 // print_r($files);
-var_dump($_POST);
+// var_dump($_POST);
 
 ?>
 

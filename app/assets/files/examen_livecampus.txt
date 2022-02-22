@@ -1,0 +1,155 @@
+CREATE DATABASE examen_livecampus;
+
+USE examen_livecampus;
+
+CREATE  TABLE restaurants (
+    restaurant_id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY  NOT NULL,
+    nom_enseigne TINYTEXT
+);
+
+CREATE  TABLE plats (
+    plat_id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    nom_plat VARCHAR(255),
+    description TEXT,
+    date_creation DATETIME
+);
+
+CREATE TABLE menu (
+    menu_id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    fk_restaurant_id INT(11) UNSIGNED NOT NULL,
+    fk_plat_id INT(11) UNSIGNED NOT NULL,
+    prix DOUBLE,
+    stock INT(11)
+);
+
+CREATE TABLE commandes (
+    commande_id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    fk_menu_id INT(11) UNSIGNED NOT NULL,
+    fk_paiement_id INT(11) UNSIGNED NOT NULL,
+    quantite_commande INT(11)
+);
+
+CREATE TABLE paiements (
+    paiement_id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    fk_client_id INT(11) UNSIGNED NOT NULL,
+    date_commande DATETIME
+);
+
+CREATE TABLE clients (
+    client_id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    prenom VARCHAR(255),
+    nom VARCHAR(255)
+);
+
+
+
+QUESTION 1: Trouvez les tickets de caisse les plus élevés pour le restaurant MODEL
+FISH;
+    SELECT nom_enseigne, paiement_id,SUM(prix)Total FROM paiements 
+    JOIN commandes com ON com.fk_paiement_id = paiements.paiement_id
+    JOIN menu ON menu.menu_id = com.fk_menu_id
+    JOIN restaurants r ON r.restaurant_id = menu.fk_restaurant_id
+    WHERE nom_enseigne LIKE "%MODEL FISH%"
+    GROUP BY paiement_id, nom_enseigne
+    ORDER BY total DESC
+    LIMIT 10
+
+
+QUESTION 2 : Trouvez la personne ayant le plus dépensé dans toute la base de
+données, et son montant
+    SELECT clients.nom, clients.prenom, SUM(menu.prix) AS total FROM clients
+    JOIN paiements p ON p.fk_client_id = clients.client_id
+    JOIN commandes com ON com.fk_paiement_id = p.paiement_id
+    JOIN menu ON menu.menu_id = com.fk_menu_id 
+    JOIN plats ON plats.plat_id = menu.fk_plat_id
+    JOIN restaurants r ON r.restaurant_id = menu.fk_restaurant_id
+    GROUP BY clients.nom, clients.prenom
+    ORDER BY total DESC
+    LIMIT 1;
+
+QUESTION 2 : Trouvez la personne ayant le moins dépensé dans toute la base de
+données, et son montant
+    SELECT clients.nom, clients.prenom, SUM(menu.prix) AS total FROM clients
+    JOIN paiements p ON p.fk_client_id = clients.client_id
+    JOIN commandes com ON com.fk_paiement_id = p.paiement_id
+    JOIN menu ON menu.menu_id = com.fk_menu_id 
+    JOIN plats ON plats.plat_id = menu.fk_plat_id
+    JOIN restaurants r ON r.restaurant_id = menu.fk_restaurant_id
+    GROUP BY clients.nom, clients.prenom
+    ORDER BY total ASC
+    LIMIT 1;
+
+QUESTION 4: Trouvez la moyenne des montants d un ticket de caisse (moyenne de tout les tickets):
+SELECT AVG(total) as Ticket_moyen
+FROM (
+        SELECT p.paiement_id, SUM(menu.prix) as total FROM paiements p
+        JOIN commandes com ON com.fk_paiement_id = p.paiement_id
+        JOIN menu ON menu.menu_id = com.fk_menu_id
+        GROUP BY paiement_id
+	) as tickets
+
+QUESTION 4 bis: Trouvez la moyenne des montants d un ticket de caisse (moyenne des montants sur un ticket):
+SELECT AVG(prix) AS Moyenne_menu FROM paiements
+JOIN commandes com ON com.fk_paiement_id = paiement_id
+JOIN menu ON menu.menu_id = com.fk_menu_id
+
+QUESTION 5: Afficher les trois restaurants en moyenne les moins chers (considérant les prix de leur carte)
+SELECT r.nom_enseigne, AVG(prix) prix_moyen FROM `menu`
+JOIN restaurants r ON menu.fk_restaurant_id = r.restaurant_id
+GROUP BY menu.fk_restaurant_id
+ORDER BY prix_moyen ASC LIMIT 3
+
+
+
+////  GESTION DES ERREURS  ///////////
+
+Question 1 : Trouvez tous les plats ayant été créé après avoir été commandés : ce nest pas normal.
+Vous devriez utiliser GROUP BY pour ne pas afficher les doublons.
+SELECT nom_plat, date_creation FROM `commandes` com
+JOIN menu ON menu.menu_id = com.fk_menu_id
+JOIN plats ON plats.plat_id = menu.fk_plat_id
+JOIN paiements p ON p.paiement_id = com.fk_paiement_id
+WHERE date_creation > date_commande
+GROUP BY nom_plat, date_creation
+
+
+Question 2 : Vous avez trouvé des plats avec pour description "undefined ": ce n est pas normal.
+Ecrivez la requête pour les changer en chaîne vide:
+UPDATE plats SET description = "" WHERE description = "undefined";
+
+Représentez un ticket de caisse entier dans une seule colonne, celui du paiement
+1514.
+Il vous faudra utiliser CONCAT, et le caractère \n pour faire un saut de ligne.
+Affichez :
+
+SELECT
+    CONCAT( "Client: ", clients.nom, " ", clients.prenom, "\n",
+        GROUP_CONCAT(c.commande SEPARATOR '\n'), "\n", "Total ticket: ", SUM(c.total_commande)
+    ) AS "Ticket de caisse"
+FROM
+    paiements
+JOIN clients ON paiements.fk_client_id = clients.client_id
+JOIN(
+    SELECT
+        commandes.fk_paiement_id,
+        (
+            menu.prix * commandes.quantite_commande
+        ) AS "total_commande",
+        CONCAT(
+            "Plat: ",
+            plats.nom_plat,":  ", menu.prix,"€ x ", commandes.quantite_commande, " ", "= ",
+            (
+                menu.prix * commandes.quantite_commande
+            )
+        ) AS "commande"
+    FROM
+        commandes
+    JOIN menu ON commandes.fk_menu_id = menu.menu_id
+    JOIN plats ON menu.fk_plat_id = plats.plat_id
+) c
+ON
+    c.fk_paiement_id = paiements.paiement_id
+WHERE
+    paiements.paiement_id = 1514
+GROUP BY
+    paiements.paiement_id; 
