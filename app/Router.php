@@ -4,10 +4,14 @@ require_once ('./models/Driver.php');
 
 require_once ('./entity/Urls.php');
 require_once ('./entity/User.php');
+require_once ('./entity/Files.php');
 
 require_once ('./controllers/Urls_controller.php');
 require_once ('./controllers/AuthController.php');
+// require_once ('./controllers/FilesController.php');
+
 require_once ('./models/Urls_model.php');
+require_once ('./models/FilesModel.php');
 require_once ('./models/AuthModel.php');
 
 
@@ -15,6 +19,7 @@ class Router{
 
     private $ctr_u;
     private $auth_ctr;
+    private $files_ctr;
     private $page; 
     private $action; 
 
@@ -23,6 +28,7 @@ class Router{
     {
         $this->ctr_u = new Urls_Controller();  
         $this->auth_ctr = new AuthController();
+        // $this->files_ctr = new Files_controller;
         $this->page = filter_input(INPUT_GET,"page");
         $this->action = filter_input(INPUT_GET,"action");
     }
@@ -31,14 +37,18 @@ class Router{
     {
         switch($this->page){
             case "":
+                // $this->files_ctr->getFiles();
                 $this->ctr_u->getUrls();
                 if(isset($_POST['submit'])){
                     $this->ctr_u->newUrls();    
                 }
+                if(isset($_POST['submitFile'])){
+                    $this->ctr_u->newFile();
+                }
                 break;
 
             case "login":
-                // $this->auth_ctr->getUsers();
+                $this->auth_ctr->getUsers();
                 $this->auth_ctr->loginForm();
                 if(isset($_POST['submit'])){
                     $login = $_POST['login'];
@@ -84,6 +94,11 @@ class Router{
             case "delete":
                 $id = $_GET['id'];
                 $this->ctr_u->deleteUrl($id);
+            break;
+
+            case "download":
+                $id = $_GET['id'];
+                $this->ctr_u->downloadFile($id);
         }
     }  
 }

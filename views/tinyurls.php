@@ -1,6 +1,10 @@
 <?php
 require_once('./views/header.php');
 require_once('./views/navbar.php');
+// print_r($files);
+// print_r($urls);
+// var_dump($_FILES);
+
 ?>
 
 <div class="container">
@@ -9,12 +13,6 @@ require_once('./views/navbar.php');
         <label class="form_label" for="longurl">Entrer l'Url à raccourcir</label>
         <input class="form_control" type="text" id="longurl" name="longurl" />
         <button type="submit" name="submit">Raccourcir</button>
-    </form>
-    </br>
-    <form method="POST" enctype="multipart/form-data">
-        <label class="form_label" for="file">Entrer le fichier à uploader</label>
-        <input class="form_control" type="file" id="file" name="file" />
-        <button type="submit" name="submit">Envoyer</button>
     </form>
     </br>
 
@@ -47,7 +45,7 @@ require_once('./views/navbar.php');
                         <td><span><?= $url['long_url'] ?></span> </td>
                         <td> <span>http://shortURL.com/<?= $url['id'], bin2hex(random_bytes(5)) ?></span></td>
                         <td><?= $url['count'] ?></td>
-                        <td> <a href="index.php?page=enabled&id=<?=$url['id'];?>"><button class="btn btn-secondary">enable</button></a> <a href="index.php?page=delete&id=<?= $url['id'] ?>"><button class="btn btn-danger" >delete</button></a></td>
+                        <td> <a href="index.php?page=enabled&id=<?=$url['id'];?>"><button class="btn btn-success">enable</button></a> <a href="index.php?page=delete&id=<?= $url['id'] ?>"><button class="btn btn-danger" >delete</button></a></td>
                     </tr>
 
                 
@@ -55,6 +53,27 @@ require_once('./views/navbar.php');
             <?php endforeach; ?>
         </tbody>
     </table>
-</div>
 
+    <form method="POST" enctype="multipart/form-data">
+        <label class="form_label" for="file">Entrer le fichier à uploader</label>
+        <input class="form_control" type="file" id="file" name="file" />
+        <button type="submit" name="submitFile">Envoyer</button>
+    </form>
+    </br>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <th>Fichiers stocké</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($files as $file) : ?>
+            <tr>
+                <td><a href="index.php?page=download&id=<?= $file['id']; ?>"><?= $file['files'] ?></a></td>
+            </tr>
+            <?php endforeach ; ?>
+        </tbody>
+    </table>
+</div>
 

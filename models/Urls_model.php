@@ -7,7 +7,8 @@ class Urls_model extends Driver{
         $sql = "SELECT * FROM urls WHERE fk_user_id = :id";
         $param = ['id' => $_SESSION['AuthId']];
         $result = $this->getRequest($sql,$param);
-        return $result;
+        $urls = $result->fetchAll(PDO::FETCH_ASSOC);
+        return $urls;
     }
 
     public function getUrl_query($id)

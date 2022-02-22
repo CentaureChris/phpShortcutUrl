@@ -39,6 +39,7 @@ class AuthController{
             $_SESSION['Auth'] = $_POST['login'];
             $_SESSION['AuthId'] = $login['id'];
             header('Location: index.php');
+            exit();
         }else{
             $error = "Login et/ou mot de pass incorrect!";
             require_once('./views/loginForm.php');
@@ -49,6 +50,7 @@ class AuthController{
     {
         unset($_SESSION['Auth'],$_SESSION['AuthId']);
         header('Location: index.php?page=login');
+        exit();
     }
 
     public function getUsers()
@@ -81,6 +83,7 @@ class AuthController{
     {
         if(!$_SESSION['Auth']){
             header(('Location: index.php?page=login'));
+            exit();
         }
     }
 }
