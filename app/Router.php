@@ -8,7 +8,6 @@ require_once ('./entity/Files.php');
 
 require_once ('./controllers/Urls_controller.php');
 require_once ('./controllers/AuthController.php');
-// require_once ('./controllers/FilesController.php');
 
 require_once ('./models/Urls_model.php');
 require_once ('./models/FilesModel.php');
@@ -23,7 +22,7 @@ class Router{
 
     public function __construct()
     {
-        $this->ctr_u = new Urls_Controller();  
+        $this->ctr_u = new Urls_Controller(); 
         $this->auth_ctr = new AuthController();
         $this->page = filter_input(INPUT_GET,"page");
         $this->action = filter_input(INPUT_GET,"action");
@@ -33,13 +32,13 @@ class Router{
     {
         switch($this->page){
             case "":
-                $this->ctr_u->getUrls();
-                if(isset($_POST['submit']) && !empty($_POST['longurl'])){
+                if(isset($_POST['submit'])){
                     $this->ctr_u->newUrls();  
                 }
                 if(isset($_POST['submitFile'])){
                     $this->ctr_u->newFile();
                 }
+                $this->ctr_u->getUrls();
                 break;
 
             case "login":

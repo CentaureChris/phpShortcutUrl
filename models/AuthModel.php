@@ -7,7 +7,7 @@ class AuthModel extends Driver {
         $sql = "SELECT * FROM users";
         $result = $this->getRequest($sql);
         $user = $result->fetchAll(PDO::FETCH_ASSOC);
-
+        // return $result;
     }
 
 
@@ -20,7 +20,7 @@ class AuthModel extends Driver {
         if($user == true){
             return $user;
         }
-
+        // var_dump($user);
     }
 
     public function login_query($login,$pass)

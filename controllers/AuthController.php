@@ -24,10 +24,10 @@ class AuthController{
     {
         if((($login) == null || ($login) == "")|| (($pass) == null || ($pass) == ""))
         {
-            echo "<h3 class ='offset-4 col-4 text-center bg-danger' >You forget a champ !</h3>";
+            echo "<h3 class ='offset-4 col-4 text-center bg-danger text-white' >You forget a champ !</h3>";
         }else{
             $login = $this->auth_mdl->getUser_query($login);
-
+            // $res = $this->auth_mdl->login_query($login,$pass);
             
             if($login == true && password_verify($pass,$login['pass']) == 1){
                 $_SESSION['Auth'] = $_POST['login'];
@@ -35,8 +35,9 @@ class AuthController{
                 header('Location: index.php');
                 exit();
             }else{
-                echo "<h3 class ='offset-4 col-4 text-center bg-danger' >Login et/ou mot de passe incorrect!</h3>";
-
+                echo "<h3 class ='offset-4 col-4 text-center bg-danger text-white' >Login et/ou mot de passe incorrect!</h3>";
+                // var_dump($pass);
+                // var_dump($login);
             }
         }
     }

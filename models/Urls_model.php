@@ -25,9 +25,13 @@ class Urls_model extends Driver{
                     "shorturl"=>$urls->getShort_url(),
                     'id' => $_SESSION['AuthId']
                 ];
-        $result = $this->getRequest($sql,$tparam);
+        try{
+            $result = $this->getRequest($sql,$tparam);
+            return $result;
+        }catch(Exception $e){
+            echo " Erreur ! ".$e->getMessage();
+        }
         
-        return $result;
     }
 
     public function disableLink_query($id)

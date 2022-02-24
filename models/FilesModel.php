@@ -24,10 +24,14 @@ class Files_model extends Driver{
         $param = ["file_name"=>$files->getFile_name(),
                     "user_id"=> $_SESSION['AuthId']
         ];
-        $result = $this->getRequest($sql,$param);
-
-        return $result;
+        try{
+            $result = $this->getRequest($sql,$param);
+            return $result;
+        }catch(Exception $e){
+            echo " Erreur ! ".$e->getMessage();
+        }
     }
+
 
     public function deleteFile_query($id)
     {
