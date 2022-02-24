@@ -44,8 +44,8 @@ class Urls_controller
 
         $nb = $this->urls_m->insertUrls($url);
 
-        // header('location:index.php');
-        // exit();
+        header('location:index.php');
+        exit();
         
     }
     
