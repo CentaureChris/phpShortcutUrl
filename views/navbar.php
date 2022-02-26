@@ -2,12 +2,12 @@
 // var_dump($_SESSION); ?>
 <nav>
     <ul class="admin">
-        <li><a href="index.php">Url shortcut</a></li>
+        <a href="index.php"><li>Url shortcut</li></a>
         <?php 
         if(!isset($_SESSION['Auth'])): ?>
-        <li><a href="index.php?page=login">Login</a></li>
+        <a href="index.php?page=login"><li>Login</li></a>
         <?php else : ?>
-        <li><a href="index.php?page=logout">Logout</a></li>
+        <a href="index.php?page=logout"><li>Logout</li></a>
         <?php endif ; ?>
     </ul>
 </nav>

@@ -9,11 +9,6 @@ class AuthController{
         $this->auth_mdl = new AuthModel();
     }
 
-    public function loginForm()
-    {
-        require_once('./views/loginForm.php');
-    }
-
     public function register()
     {
         require_once('./views/register.php');
@@ -24,7 +19,7 @@ class AuthController{
     {
         if((($login) == null || ($login) == "")|| (($pass) == null || ($pass) == ""))
         {
-            echo "<h3 class ='offset-4 col-4 text-center bg-danger text-white' >You forget a champ !</h3>";
+            $error =  "You forget a champ !";
         }else{
             $login = $this->auth_mdl->getUser_query($login);
             // $res = $this->auth_mdl->login_query($login,$pass);
@@ -35,11 +30,12 @@ class AuthController{
                 header('Location: index.php');
                 exit();
             }else{
-                echo "<h3 class ='offset-4 col-4 text-center bg-danger text-white' >Login et/ou mot de passe incorrect!</h3>";
+                $error =  "Login et/ou mot de passe incorrect!";
                 // var_dump($pass);
                 // var_dump($login);
             }
         }
+        require_once('./views/loginForm.php');
     }
 
     public function logout()
@@ -82,4 +78,11 @@ class AuthController{
             exit();
         }
     }
+
+
+    // public function loginForm()
+    // {
+    //     require_once('./views/loginForm.php');
+    // }
+
 }

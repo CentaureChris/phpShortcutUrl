@@ -2,10 +2,14 @@
 require_once('./views/header.php');
 require_once('./views/navbar.php') ;
 // var_dump($_POST);
+// var_dump($error);
 ?>
 
 <div class="container">
   <h1>Login Form</h1>
+  <?php if(isset($error)): ?>
+   <div class="col-4 offset-4 alert alert-danger text-center"> <?= $error; ?> </div>
+  <?php endif ; ?>
   <form class="col-4 offset-4" method="POST">
 
     <div class="mb-3">

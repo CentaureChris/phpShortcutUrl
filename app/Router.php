@@ -42,13 +42,14 @@ class Router{
                 break;
 
             case "login":
-                $this->auth_ctr->getUsers();
-                $this->auth_ctr->loginForm();
+                // $this->auth_ctr->loginForm();
                 if(isset($_POST['submit'])){
                     $login = $_POST['login'];
                     $pass = $_POST['pass'];
                     $this->auth_ctr->login($login,$pass);   
                 }
+                $this->auth_ctr->getUsers();
+
                 break;
 
             case "register":
