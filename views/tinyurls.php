@@ -5,9 +5,8 @@ require_once('./views/navbar.php');
 // var_dump($_POST);
 
 ?>
-
+<h1>Shortcut urls app</h1>
 <div class="container">
-    <h1>Shortcut urls app</h1>
     <form method="POST" action="<?php $_SERVER['PHP_SELF']; ?>">
         <label class="form_label" for="longurl">Entrer l'Url à raccourcir</label>
         <input class="form_control" type="text" id="longurl" name="longurl" />
@@ -20,10 +19,10 @@ require_once('./views/navbar.php');
     <table>
         <thead>
             <tr>
-                <th>Url complete</th>
-                <th>Url raccourcis</th>
-                <th>Visites</th>
-                <th>Action</th>
+                <th class="no-sort">Url complete</th>
+                <th class="no-sort">Url raccourcis</th>
+                <th class="no-sort">Visites</th>
+                <th class="no-sort">Action</th>
             </tr>
         </thead>
         <tbody>
